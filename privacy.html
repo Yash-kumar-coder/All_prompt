@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - PromptHub</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #10b981;
+            --dark: #1f2937;
+            --darker: #111827;
+            --light: #f3f4f6;
+            --lighter: #f9fafb;
+            --gray: #9ca3af;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar Styles - From First Code */
+        .navbar {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 6px 0;
+            transition: var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--dark);
+            z-index: 101;
+        }
+
+        /* Mobile Navigation - From First Code */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 98;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+        }
+
+        /* Privacy Policy Content */
+        .privacy-hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .privacy-hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .privacy-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            left: -200px;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .privacy-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .privacy-subtitle {
+            font-size: 1.2rem;
+            color: var(--dark);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        .privacy-content {
+            background: white;
+            padding: 60px;
+            border-radius: var(--border-radius-lg);
+            margin: 40px 0 80px;
+            box-shadow: var(--shadow);
+        }
+
+        .privacy-section {
+            margin-bottom: 40px;
+        }
+
+        .privacy-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .privacy-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .privacy-section h3 {
+            font-size: 1.3rem;
+            margin: 25px 0 15px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .privacy-section p {
+            margin-bottom: 15px;
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        .privacy-section ul, .privacy-section ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .privacy-section li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background-color: rgba(99, 102, 241, 0.1);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary);
+            margin: 20px 0;
+        }
+
+        .update-date {
+            text-align: center;
+            font-style: italic;
+            color: var(--gray);
+            margin-top: 40px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--darker);
+            color: var(--light);
+            padding: 60px 0 40px;
+            text-align: center;
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-link {
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -50%;
+                top: 0;
+                flex-direction: column;
+                background-color: white;
+                width: 50%;
+                height: 100vh;
+                text-align: left;
+                transition: 0.4s ease;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 80px 30px 30px;
+                gap: 25px;
+                z-index: 99;
+            }
+
+            .nav-menu.active {
+                left: 0;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15);
+            }
+
+            .nav-link {
+                font-size: 1.1rem;
+                padding: 10px 0;
+            }
+
+            .hamburger {
+                display: block;
+                position: relative;
+                z-index: 101;
+            }
+
+            .mobile-nav-overlay {
+                display: block;
+            }
+            
+            .privacy-title {
+                font-size: 2.2rem;
+            }
+
+            .privacy-subtitle {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+
+            .privacy-content {
+                padding: 40px 30px;
+            }
+
+            .privacy-section h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-menu {
+                width: 70%;
+                left: -70%;
+            }
+            
+            .privacy-title {
+                font-size: 2rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .logo-icon {
+                font-size: 1.7rem;
+            }
+
+            .privacy-content {
+                padding: 30px 20px;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar from First Code -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-sparkles logo-icon"></i>
+            PromptHub
+        </a>
+        
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="prompt.html" class="nav-link">Prompts</a></li>
+            <li><a href="privacy.html" class="nav-link active">Privacy</a></li>
+           
+        </ul>
+        
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+        
+        <div class="mobile-nav-overlay"></div>
+    </nav>
+
+    <!-- Privacy Policy Hero Section -->
+    <section class="privacy-hero">
+        <div class="container">
+            <h1 class="privacy-title">Privacy Policy</h1>
+            <p class="privacy-subtitle">Your privacy is important to us. This policy explains how we collect, use, and protect your information.</p>
+        </div>
+    </section>
+
+    <!-- Privacy Policy Content -->
+    <section class="container">
+        <div class="privacy-content">
+            <div class="privacy-section">
+                <h2>1. Introduction</h2>
+                <p>Welcome to PromptHub ("we," "our," or "us"). We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.</p>
+                <p>If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at privacy@prompthub.com.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>2. Information We Collect</h2>
+                
+                <h3>Personal Information</h3>
+                <p>We may collect personal information that you voluntarily provide to us when you:</p>
+                <ul>
+                    <li>Register on our website</li>
+                    <li>Purchase prompts or subscriptions</li>
+                    <li>Subscribe to our newsletter</li>
+                    <li>Contact us with inquiries</li>
+                    <li>Participate in our forums or community features</li>
+                </ul>
+                <p>The personal information we collect may include:</p>
+                <ul>
+                    <li>Name and contact details (email address, etc.)</li>
+                    <li>Payment information (processed securely by our payment providers)</li>
+                    <li>Account credentials</li>
+                    <li>User-generated content (prompts, comments, etc.)</li>
+                </ul>
+                
+                <h3>Automatically Collected Information</h3>
+                <p>When you visit our website, we automatically collect certain information about your device and usage, including:</p>
+                <ul>
+                    <li>IP address and device identifiers</li>
+                    <li>Browser type and operating system</li>
+                    <li>Pages visited and time spent on the site</li>
+                    <li>Referring websites and search terms</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>3. How We Use Your Information</h2>
+                <p>We use the information we collect for various purposes, including to:</p>
+                <ul>
+                    <li>Provide, operate, and maintain our services</li>
+                    <li>Process your transactions and send related information</li>
+                    <li>Send administrative information, such as updates and security alerts</li>
+                    <li>Respond to your comments, questions, and requests</li>
+                    <li>Develop new products, services, features, and functionality</li>
+                    <li>Analyze and improve our services and marketing activities</li>
+                    <li>Protect against fraudulent or illegal activity</li>
+                </ul>
+                
+                <div class="highlight">
+                    <p><strong>Legal Basis for Processing:</strong> We process your personal information based on your consent, our legitimate business interests, the need to perform a contract with you, or compliance with legal obligations.</p>
+                </div>
+            </div>
+
+            <div class="privacy-section">
+                <h2>4. How We Share Your Information</h2>
+                <p>We may share your information in the following situations:</p>
+                <ul>
+                    <li><strong>Service Providers:</strong> We may share your information with third-party vendors who perform services on our behalf (payment processing, data analysis, email delivery, etc.).</li>
+                    <li><strong>Business Transfers:</strong> We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition.</li>
+                    <li><strong>Legal Requirements:</strong> We may disclose your information where required to do so by law or in response to valid requests by public authorities.</li>
+                    <li><strong>With Your Consent:</strong> We may disclose your personal information for any other purpose with your consent.</li>
+                </ul>
+            </div>
+
+            <div class="privacy-section">
+                <h2>5. Data Retention</h2>
+                <p>We will retain your personal information only for as long as is necessary for the purposes set out in this Privacy Policy, or as required by law. We will also retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our policies.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>6. Your Privacy Rights</h2>
+                <p>Depending on your location, you may have the following rights regarding your personal information:</p>
+                <ul>
+                    <li>Access and receive a copy of your personal data</li>
+                    <li>Rectify inaccurate or incomplete personal data</li>
+                    <li>Request erasure of your personal data</li>
+                    <li>Restrict or object to the processing of your personal data</li>
+                    <li>Data portability (receiving your data in a structured format)</li>
+                    <li>Withdraw consent at any time where we rely on consent to process your information</li>
+                </ul>
+                <p>To exercise any of these rights, please contact us using the details provided in the Contact section.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>7. Cookies and Tracking Technologies</h2>
+                <p>We use cookies and similar tracking technologies to collect and use personal information about you, including to serve interest-based advertising. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.</p>
+                <p>For more information about the cookies we use and your choices regarding cookies, please visit our Cookie Policy.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>8. Data Security</h2>
+                <p>We have implemented appropriate technical and organizational security measures designed to protect the security of any personal information we process. However, please also remember that we cannot guarantee that the internet itself is 100% secure.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>9. Children's Privacy</h2>
+                <p>Our services are not intended for use by children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected personal information from a child under age 13, we will take steps to delete such information.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>10. Changes to This Privacy Policy</h2>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. You are advised to review this Privacy Policy periodically for any changes.</p>
+            </div>
+
+            <div class="privacy-section">
+                <h2>11. Contact Us</h2>
+                <p>If you have questions or comments about this Privacy Policy, you may email us at privacy@prompthub.com or contact us by post at:</p>
+             
+            </div>
+
+            <p class="update-date">Last Updated: Sep, 2025</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-sparkles"></i> PromptHub
+                </div>
+
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="prompt.html" class="footer-link">Prompts</a>                   
+                    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                   
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                </div>
+
+                <p class="copyright">© 2025 PromptHub. All rights reserved.</p>
+                <a href="#" class="footer-link">License Information</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle - From First Code
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const overlay = document.querySelector('.mobile-nav-overlay');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            // Change hamburger icon when menu is open
+            if (navMenu.classList.contains('active')) {
+                hamburger.innerHTML = '<i class="fas fa-times"></i>';
+                document.body.style.overflow = 'hidden';
+            } else {
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close mobile menu when clicking on overlay
+        overlay.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close mobile menu when clicking on a nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+            });
+        });
+    </script>
+</body>
+
+</html>

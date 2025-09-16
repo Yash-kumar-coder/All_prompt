@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptHub - Creative Prompts Marketplace</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #10b981;
+            --dark: #1f2937;
+            --darker: #111827;
+            --light: #f3f4f6;
+            --lighter: #f9fafb;
+            --gray: #9ca3af;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar Styles - From First Code */
+        .navbar {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 6px 0;
+            transition: var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--dark);
+            z-index: 101;
+        }
+
+        /* Mobile Navigation - From First Code */
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 98;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            left: -200px;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--dark);
+            max-width: 600px;
+            margin: 0 auto 60px;
+            font-weight: 400;
+        }
+
+        .carousel {
+            position: relative;
+            margin: 0 auto 80px;
+            max-width: 100%;
+            overflow: hidden;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+        }
+
+        .carousel-container {
+            display: flex;
+            gap: 25px;
+            padding: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            border-radius: var(--border-radius);
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Opera*/
+        }
+
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 300px;
+            height: 533px;
+            /* 9:16 aspect ratio */
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 25px 30px -10px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .carousel-item:hover .carousel-img {
+            transform: scale(1.1);
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .prompt-btn {
+            padding: 12px 30px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .prompt-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .carousel-control:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-control.prev {
+            left: 20px;
+        }
+
+        .carousel-control.next {
+            right: 20px;
+        }
+
+        /* All Prompts Button Section */
+        .all-prompts-section {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .all-prompts-btn {
+            padding: 18px 45px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .all-prompts-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            margin: 40px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            background: var(--lighter);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .feature-desc {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--darker);
+            color: var(--light);
+            padding: 60px 0 40px;
+            text-align: center;
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-link {
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design - Navigation from First Code */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -50%;
+                top: 0;
+                flex-direction: column;
+                background-color: white;
+                width: 50%;
+                height: 100vh;
+                text-align: left;
+                transition: 0.4s ease;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 80px 30px 30px;
+                gap: 25px;
+                z-index: 99;
+            }
+
+            .nav-menu.active {
+                left: 0;
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15);
+            }
+
+            .nav-link {
+                font-size: 1.1rem;
+                padding: 10px 0;
+            }
+
+            .hamburger {
+                display: block;
+                position: relative;
+                z-index: 101;
+            }
+
+            .mobile-nav-overlay {
+                display: block;
+            }
+
+            /* Rest of the responsive styles from second code */
+            .hero-title {
+                font-size: 2.5rem;
+                margin-bottom: 40px;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+                padding: 0 20px;
+            }
+
+            .carousel-item {
+                width: 280px;
+                height: 497px;
+            }
+
+            .carousel-control {
+                width: 40px;
+                height: 40px;
+            }
+
+            .all-prompts-btn {
+                padding: 16px 38px;
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nav-menu {
+                width: 70%;
+                left: -70%;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .carousel-item {
+                width: 250px;
+                height: 444px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .logo-icon {
+                font-size: 1.7rem;
+            }
+
+            .all-prompts-btn {
+                padding: 14px 32px;
+                font-size: 0.95rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        .head h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar from First Code -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <i class="fas fa-sparkles logo-icon"></i>
+            AllPrompt
+        </a>
+
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="prompt.html" class="nav-link">Prompts</a></li>
+            <li><a href="privacy.html" class="nav-link">Privacy</a></li>
+           
+        </ul>
+
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="mobile-nav-overlay"></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Explore All Creative Prompts</h1>
+            <p class="hero-subtitle">Discover thousands of handcrafted prompts to spark your creativity and enhance your
+                AI projects</p>
+
+            <div class="head">
+                <h2>Treanding :-</h2>
+            </div>
+
+          <div class="carousel">
+                <div class="carousel-container">
+                    <!-- Carousel Items -->
+                    <div class="carousel-item">
+                        <img src="index/1.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="1.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="index/2.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="2.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="index/2a.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="2a.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+
+                    <div class="carousel-item">
+                        <img src="index/3.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="3.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="index/4.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="4.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="index/5.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="5.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="index/6.png" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="6.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+
+                    <div class="carousel-item">
+                        <img src="index/7.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="7.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+
+                    <div class="carousel-item">
+                        <img src="index/8.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="8.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Controls -->
+                <div class="carousel-control prev">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="carousel-control next">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+
+
+            <div class="head">
+                <h2>Chatgpt :-</h2>
+            </div>
+
+
+
+            <div class="carousel">
+                <div class="carousel-container">
+                    <!-- Carousel Items -->
+                    <div class="carousel-item">
+                        <img src="chatgpt/1.png" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="ch1.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="chatgpt/2.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="ch2.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+
+
+                    <div class="carousel-item">
+                        <img src="/chatgpt/3.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="ch3.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="/chatgpt/4.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="ch4.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="/chatgpt/5.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="ch5.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <img src="/chatgpt/6.jpeg" alt="Art prompt" class="carousel-img">
+                        <div class="carousel-overlay">
+                            <a href="ch6.html"><button class="prompt-btn">View Prompt</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Controls -->
+                <div class="carousel-control prev">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="carousel-control next">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+
+
+
+
+
+
+         
+
+
+
+
+            <!-- All Prompts Button -->
+            <div class="all-prompts-section">
+                <a href="prompt.html">
+                    <button class="all-prompts-btn">
+                        <i class="fas fa-th-large"></i>
+                        Explore All Prompts
+                    </button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose AllPrompt?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="feature-title">Curated Quality</h3>
+                    <p class="feature-desc">Every prompt is reviewed by our team to ensure the highest quality and
+                        creativity for your projects.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Instant Access</h3>
+                    <p class="feature-desc">Get immediate access to thousands of prompts with a single click. No
+                        waiting, no delays.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Vibrant Community</h3>
+                    <p class="feature-desc">Join a community of creators, share your prompts, and get feedback from
+                        like-minded individuals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-sparkles"></i> AllPrompt
+                </div>
+
+                <div class="footer-links">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="prompt.html" class="footer-link">Prompts</a>
+                    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                    
+                </div>
+
+                <div class="social-links">
+                    <a href="https://x.com/Tech_Yash08" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/yashgupta4196/" class="social-link"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/yash-gupta-30a066331/" class="social-link"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Yash-kumar-coder" class="social-link"><i class="fab fa-github"></i></a>
+                </div>
+
+                <p class="copyright">© 2025 AllPrompt. All rights reserved..</p>
+                <a href="#" class="footer-link">License Information</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle - From First Code
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const overlay = document.querySelector('.mobile-nav-overlay');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            // Change hamburger icon when menu is open
+            if (navMenu.classList.contains('active')) {
+                hamburger.innerHTML = '<i class="fas fa-times"></i>';
+                document.body.style.overflow = 'hidden';
+            } else {
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close mobile menu when clicking on overlay
+        overlay.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close mobile menu when clicking on a nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Initialize all carousels
+        function initCarousels() {
+            const carousels = document.querySelectorAll('.carousel');
+
+            carousels.forEach(carousel => {
+                const container = carousel.querySelector('.carousel-container');
+                const prevBtn = carousel.querySelector('.carousel-control.prev');
+                const nextBtn = carousel.querySelector('.carousel-control.next');
+                const carouselItems = carousel.querySelectorAll('.carousel-item');
+
+                let currentPosition = 0;
+                const itemWidth = carouselItems[0].offsetWidth + 25; // width + gap
+
+                // Calculate how many items are visible
+                function getVisibleItems() {
+                    const carouselWidth = container.offsetWidth;
+                    return Math.floor(carouselWidth / itemWidth);
+                }
+
+                // Update carousel position
+                function updateCarousel() {
+                    container.scrollTo({
+                        left: currentPosition * itemWidth,
+                        behavior: 'smooth'
+                    });
+                }
+
+                // Next button event
+                nextBtn.addEventListener('click', () => {
+                    const visibleItems = getVisibleItems();
+                    const maxScroll = carouselItems.length - visibleItems;
+
+                    if (currentPosition < maxScroll) {
+                        currentPosition++;
+                        updateCarousel();
+                    }
+                });
+
+                // Previous button event
+                prevBtn.addEventListener('click', () => {
+                    if (currentPosition > 0) {
+                        currentPosition--;
+                        updateCarousel();
+                    }
+                });
+
+                // Handle window resize for this carousel
+                window.addEventListener('resize', () => {
+                    // Reset position on resize for better responsiveness
+                    currentPosition = 0;
+                    updateCarousel();
+                });
+            });
+        }
+
+        // All Prompts Button functionality
+        // const allPromptsBtn = document.querySelector('.all-prompts-btn');
+        // allPromptsBtn.addEventListener('click', () => {
+        //     alert('Exploring all prompts! This would navigate to the full prompts gallery.');
+        //     // In a real implementation, this would link to the prompts page
+        //     // window.location.href = '/prompts';
+        // });
+
+        // Add subtle animation to features on scroll
+        const featureCards = document.querySelectorAll('.feature-card');
+
+        function checkScroll() {
+            featureCards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (cardTop < windowHeight * 0.8) {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Initialize feature card styles
+        featureCards.forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            initCarousels();
+            checkScroll();
+            window.addEventListener('scroll', checkScroll);
+        });
+    </script>
+</body>
+
+</html>
